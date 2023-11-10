@@ -380,21 +380,22 @@ class Bot:
         if wind_heading < 0:
             wind_heading += 360
 
-        #print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v)
-        """
-        if abs(given_heading - wind_heading) < 30 :
+        diference = abs(given_heading - wind_heading)
+        if diference > 150:
 
-            goto_heading = Heading(given_heading + 45*self.last_wiggle_sign)
+            goto_heading = Heading(given_heading + 25*self.last_wiggle_sign)
 
             self.last_wiggle_sign = self.last_wiggle_sign * (-1)
 
-            #print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "result = ", goto_heading.angle, "u=",u, "v=", v)
+            print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "result = ", goto_heading.angle, "u=",u, "v=", v)
 
-            #instructions.heading = goto_heading
+            instructions.heading = goto_heading
             #return instructions
+        else:
+            print("Normal print out goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v, "diference", diference)
 
-        #return instructions
-        """
+        return instructions
+
 
         # Possible to do different course than straight to next goal
         instructions.location = location
