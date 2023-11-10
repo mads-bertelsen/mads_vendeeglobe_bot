@@ -387,12 +387,13 @@ class Bot:
 
             self.last_wiggle_sign = self.last_wiggle_sign * (-1)
 
-            print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "result = ", goto_heading.angle, "u=",u, "v=", v)
+            #print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "result = ", goto_heading.angle, "u=",u, "v=", v)
 
             instructions.heading = goto_heading
             #return instructions
         else:
-            print("Normal print out goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v, "diference", diference)
+            pass
+            #print("Normal print out goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v, "diference", diference)
 
         return instructions
 
