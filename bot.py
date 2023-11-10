@@ -171,7 +171,7 @@ class Bot:
         course_C2_to_start_quick = [
 
             Checkpoint(14.911203, 55.438251, radius=30.0), # get to entry
-            Checkpoint(11.186727, 43.980339, radius=16.0), # first turn in entry
+            Checkpoint(11.573615, 44.208690, radius=16.0), # first turn in entry
             Checkpoint(25.045441, 36.245365, radius=10.0), # middle of cannal
             Checkpoint(28.397641, 33.300382, radius=10.0), # first bend in narrow
             Checkpoint(29.611130, 32.496083, radius=5.0),  # second bend in narrow
@@ -392,8 +392,9 @@ class Bot:
             instructions.heading = goto_heading
             #return instructions
         else:
-            pass
+
             #print("Normal print out goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v, "diference", diference)
+            pass
 
         return instructions
 
