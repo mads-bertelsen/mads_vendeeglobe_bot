@@ -149,7 +149,8 @@ class Bot:
             Checkpoint(-4.519411, 108.035830, radius=10.0),
             Checkpoint(-5.847248, 105.918941, radius=30.0), # tiny gap
             Checkpoint(-7.102692, 102.609311, radius=30.0),  # tiny gap
-            Checkpoint(latitude=-15.668984, longitude=77.674694, radius=1190.0),  # 1200
+            #Checkpoint(latitude=-15.668984, longitude=77.674694, radius=1190.0),  # 1200
+            Checkpoint(-7.050042, 77.820318, radius=20.0),  # 1200
         ]
 
         self.routes[1][2] = [plan(course_C1_to_C2_quick, goal_index=2),
@@ -175,8 +176,10 @@ class Bot:
             Checkpoint(28.397641, 33.300382, radius=10.0), # first bend in narrow
             Checkpoint(29.611130, 32.496083, radius=5.0),  # second bend in narrow
             Checkpoint(33.335618, 31.914460, radius=15.0), # mediteranian
-            Checkpoint(35.683605, 12.347973, radius=15.0), # south of malta
-            Checkpoint(38.891133, 11.153104, radius=15.0),  # north of malta
+            #Checkpoint(35.683605, 12.347973, radius=15.0), # south of malta
+            Checkpoint(36.578350, 13.160854, radius=15.0),  # south of malta
+            #Checkpoint(38.891133, 11.153104, radius=15.0),  # north of malta
+            Checkpoint(38.241445, 11.189234, radius=15.0),  # north of malta
             Checkpoint(35.984336, -5.232362, radius=15.0),  # out of gibraltar
             Checkpoint(35.849286, -9.661498, radius=15.0),  # out of gibraltar
             Checkpoint(44.141949, -12.566433, radius=50.0), # get through to france
@@ -187,8 +190,6 @@ class Bot:
                 radius=5,
             )
         ]
-
-
 
         self.routes[2][0] = [plan(course_C2_to_start_quick, goal_index=0),
                              #plan(course_C2_to_start, goal_index=0),
@@ -364,24 +365,36 @@ class Bot:
 
         self.last_lattitude = latitude
         self.last_longitude = longitude
-        goto_heading = goto(Location(latitude,longitude), location)
+
+        given_heading = goto(Location(latitude=latitude, longitude=longitude), location)
+
+        instructions.heading = Heading(given_heading)
 
         u, v = forecast.get_uv(lat=latitude, lon=longitude, t=0)
         # u positive for west to east
         # v positive for north to south
 
-        wind_heading = np.arctan2(v, u)
+        wind_heading = 180/np.pi * np.arctan2(v, u)
+        #wind_heading = 180 / np.pi * np.arctan2(-v, u)
 
-        if abs(goto_heading - wind_heading) < 30 :
+        if wind_heading < 0:
+            wind_heading += 360
 
-            goto_heading = Heading(goto_heading + 45*self.last_wiggle_sign)
+        #print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "u=", u, "v=", v)
+        """
+        if abs(given_heading - wind_heading) < 30 :
+
+            goto_heading = Heading(given_heading + 45*self.last_wiggle_sign)
 
             self.last_wiggle_sign = self.last_wiggle_sign * (-1)
 
-            print("Against the wind! ", goto_heading, wind_heading)
+            #print("Against the wind! goto: ", given_heading, " wind=", wind_heading, "result = ", goto_heading.angle, "u=",u, "v=", v)
 
             #instructions.heading = goto_heading
             #return instructions
+
+        #return instructions
+        """
 
         # Possible to do different course than straight to next goal
         instructions.location = location
