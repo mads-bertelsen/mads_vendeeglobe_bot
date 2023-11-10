@@ -175,7 +175,7 @@ class Bot:
             Checkpoint(25.045441, 36.245365, radius=10.0), # middle of cannal
             Checkpoint(28.397641, 33.300382, radius=10.0), # first bend in narrow
             Checkpoint(29.611130, 32.496083, radius=5.0),  # second bend in narrow
-            Checkpoint(33.335618, 31.914460, radius=15.0), # mediteranian
+            Checkpoint(32.876000, 31.960652, radius=15.0), # mediteranian
             #Checkpoint(35.683605, 12.347973, radius=15.0), # south of malta
             Checkpoint(36.578350, 13.160854, radius=15.0),  # south of malta
             #Checkpoint(38.891133, 11.153104, radius=15.0),  # north of malta
@@ -383,7 +383,7 @@ class Bot:
         diference = abs(given_heading - wind_heading)
         if diference > 150:
 
-            goto_heading = Heading(given_heading + 25*self.last_wiggle_sign)
+            goto_heading = Heading(given_heading + 35*self.last_wiggle_sign)
 
             self.last_wiggle_sign = self.last_wiggle_sign * (-1)
 
